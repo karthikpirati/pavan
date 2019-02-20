@@ -1,0 +1,36 @@
+<p-dataTable [value]="testData" [expandableRows]="true" [expandedRows]="expandedItems" #dt >
+  <p-header class="hdr">Application Urls</p-header>
+  <p-column header="List of urls" [style]="{'width':'10px'}">
+    <ng-template pTemplate let-row="rowData" let-i="rowIndex">
+     <div (click)="toggleComment(i)"> <span>{{row.name}}</span></div>
+    </ng-template>
+  </p-column>
+
+  <ng-template let-data pTemplate="rowexpansion">
+    <table class="urlTable">
+      <tr *ngIf="data.name!='Support'">
+        <th></th>
+        <th>DEV</th>
+        <th>SIT</th>
+        <th>UAT</th>
+        <th>PROD</th>
+      </tr>
+      <tr *ngIf="data.name!='Support'">
+        <td>NDC</td>
+        <td *ngFor="let u of data.ndcUrls"><a (click)="routeTo(u.url)"><b>{{u.name}}</b></a></td>
+      </tr>
+      <tr *ngIf="data.name!='Support'">
+        <td>DXC</td>
+        <td *ngFor="let u of data.dxcUrls"><a (click)="routeTo(u.url)"><b>{{u.name}}</b></a></td>
+      </tr>
+      <tr *ngIf="data.name=='Support'">
+      <div class="divStyle"><b style="color:dimgray">Common Urls</b></div>
+        <ul>
+        <li *ngFor="let url of data.urls"><a (click)="routeTo(u.url)"><b>{{url.name}}</b></a></li>
+        </ul>
+      </tr>
+    </table>
+  </ng-template>
+
+</p-dataTable>
+
